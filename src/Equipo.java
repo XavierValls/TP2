@@ -133,5 +133,13 @@ public class Equipo {
 		} else {
 			JOptionPane.showMessageDialog(null, "No hay jugadores en el plantel");
 		}
-	}	
+	}
+	
+	public void cantJugadores() {
+		if (!plantel.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "La cantidad de Jugadores del plantel es: " + plantel.size());
+		} else {
+			JOptionPane.showMessageDialog(null, "El plantel no cuenta con Jugadores");
+		}
+	}
 }

@@ -57,4 +57,28 @@ public class GestorEquipos {
 		}
 		return null;
 	}
+	
+	public void agregarEquipo() {
+		String nombreEquipo = JOptionPane.showInputDialog("Ingrese el nombre del Equipo");
+		String ciudadEquipo = JOptionPane.showInputDialog("Ingrese la ciudad del Equipo"); 
+		Equipo nuevo = new Equipo(nombreEquipo,ciudadEquipo);
+		if (this.getEquipos().isEmpty()) {
+			this.getEquipos().add(nuevo);
+		} else {
+			boolean flag = true;
+			for (Equipo equipos : this.getEquipos()) {
+				if (equipos.getNombre() == nuevo.getNombre()) {
+					JOptionPane.showMessageDialog(null, "Este nombre ya existe");
+					flag = false;
+					break;
+				}
+			}
+			if (flag) {
+				this.getEquipos().add(nuevo);
+			} else {
+				JOptionPane.showMessageDialog(null, "No se pudo agregar el equipo, el nombre ya existe");
+			}
+
+		}
+	}
 }
