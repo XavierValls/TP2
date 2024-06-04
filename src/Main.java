@@ -20,8 +20,6 @@ public class Main {
 			
 			do {
 				opcion = JOptionPane.showOptionDialog(null, "Elija una opcion", null, 0, 0, null, opciones, opciones[0]);
-
-				
 				switch (opcion) {
 				case 0:
 					int equipoElegido= elegirEquipo(nuevo.getEquipos());
@@ -63,7 +61,6 @@ public class Main {
 
 							break;
 						}
-						
 							
 					} while (opcion2!=4);
 					break;

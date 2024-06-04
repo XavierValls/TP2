@@ -115,8 +115,8 @@ public class Equipo {
 	
 	
 	public void buscarJugador() {
-		String buscar = JOptionPane.showInputDialog("Ingrese el nombre del jugador");
-		if (buscar!=null) {
+		if (!plantel.isEmpty()) {
+			String buscar = JOptionPane.showInputDialog("Ingrese el nombre del jugador");
 			String[] nombreJugadores = new String[plantel.size()];
 			for (int i = 0; i < plantel.size(); i++) {
 	            nombreJugadores[i] = plantel.get(i).getNombre();
@@ -124,16 +124,14 @@ public class Equipo {
 			for (Jugador jugador : plantel) {
 				if (jugador.getNombre().equalsIgnoreCase(buscar)) {
 					JOptionPane.showMessageDialog(null, jugador);
-				} else {
+				} else if (buscar!=null){
 					JOptionPane.showMessageDialog(null, "El jugador no se encontro en el plantel");
+				} else {
+					JOptionPane.showMessageDialog(null, "No ingreso un nombre. Saliendo...");
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Debe ingresar un nombre");
+			JOptionPane.showMessageDialog(null, "No hay jugadores en el plantel");
 		}
-	}
-
-	
-	
-	
+	}	
 }
