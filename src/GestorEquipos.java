@@ -32,65 +32,92 @@ public class GestorEquipos {
 
 	public String JugarPartido(Equipo equipo1, Equipo equipo2) {
 		if (equipo1.getPlantel().size() >= 8 && equipo2.getPlantel().size() >= 8) {
-			JOptionPane.showMessageDialog(null, "El partido comenzara pronto");
-			int goles1;
-			int goles2;
-			int resultado1;
-			int resultado2;
-			
-				goles1 = (int)(Math.random()*5);
-				resultado1 = goles1;
-				goles2 = (int)(Math.random()*5);
-				resultado2 = goles2;
-				JOptionPane.showMessageDialog(null, "Se termino el primer tiempo\n Resultado : "+ equipo1.getNombre() + " " + goles1 + " : " + goles2 + " " + equipo2.getNombre());
-				JOptionPane.showMessageDialog(null, "Arranca el segundo tiempo...");
-				goles1 = (int)(Math.random()*5);
-				resultado1 = resultado1 + goles1;
-				goles2 = (int)(Math.random()*5);
-				resultado2 = resultado2 + goles2;
-				JOptionPane.showMessageDialog(null, "Se termino el segundo tiempo\n Resultado : "+ equipo1.getNombre() + " " + resultado1 + " : " + resultado2 + " " + equipo2.getNombre());
-				if (resultado1==resultado2) {
-					JOptionPane.showMessageDialog(null, "Es un empate. Hay penales...");
-					int penales1,penales2,tot1,tot2;
-					tot1 = 0;
-					tot2 = 0;
-					do {
-						JOptionPane.showMessageDialog(null, equipo1.getNombre() + " Patea el penal...");
-						penales1=(int)(Math.random()*2);
-						if (penales1 == 1) {
-							JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo1.getNombre());
-							tot1=tot1+1;
-						} else {
-							JOptionPane.showMessageDialog(null, equipo1.getNombre() +" Erro el penal :(");
-						}
-						JOptionPane.showMessageDialog(null, equipo2.getNombre() + " Patea el penal...");
-						penales2=(int)(Math.random()*2);
-						if (penales2 == 1) {
-							JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo2.getNombre());
-							tot2=tot2+1;
-						} else {
-							JOptionPane.showMessageDialog(null, equipo2.getNombre() +" Erro el penal :(");
-						}
-						JOptionPane.showMessageDialog(null, "Resultado actual: " + equipo1.getNombre() + " " + tot1 + " : " + tot2 + " " + equipo2.getNombre());
-					}while(tot1 < 3 && tot2 < 3);
-					
-					if (tot1>tot2) {
-						resultado1=1;
-						resultado2=0;
-					} else {
-						resultado2=1;
-						resultado1=0;
-					}
-
-				} 
-			
-			if(resultado1>resultado2) {
-				return equipo1.getNombre();
+			if (equipo1.getNombre().equals(equipo2.getNombre())) {
+				JOptionPane.showMessageDialog(null, "No puede jugar el mismo equipo, elija otro");
 			} else {
-				return equipo2.getNombre();
+				JOptionPane.showMessageDialog(null, "El partido comenzara pronto");
+				int goles1;
+				int goles2;
+				int resultado1;
+				int resultado2;
+		
+					goles1 = (int)(Math.random()*5);
+					resultado1 = goles1;
+					goles2 = (int)(Math.random()*5);
+					resultado2 = goles2;
+					JOptionPane.showMessageDialog(null, "Se termino el primer tiempo\n Resultado : "+ equipo1.getNombre() + " " + goles1 + " : " + goles2 + " " + equipo2.getNombre());
+					JOptionPane.showMessageDialog(null, "Arranca el segundo tiempo...");
+					goles1 = (int)(Math.random()*5);
+					resultado1 = resultado1 + goles1;
+					goles2 = (int)(Math.random()*5);
+					resultado2 = resultado2 + goles2;
+					JOptionPane.showMessageDialog(null, "Se termino el segundo tiempo\n Resultado : "+ equipo1.getNombre() + " " + resultado1 + " : " + resultado2 + " " + equipo2.getNombre());
+					//Si empatan van a penales. Gana el primero que llegue a 3 penales.
+					if (resultado1==resultado2) {
+						JOptionPane.showMessageDialog(null, "Es un empate. Hay penales...");
+						int penales1,penales2,tot1,tot2;
+						tot1 = 0;
+						tot2 = 0;
+						do {
+							JOptionPane.showMessageDialog(null, equipo1.getNombre() + " Patea el penal...");
+							penales1=(int)(Math.random()*2);
+							if (penales1 == 1) {
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo1.getNombre());
+								tot1=tot1+1;
+							} else {
+								JOptionPane.showMessageDialog(null, equipo1.getNombre() +" Erro el penal :(");
+							}
+							JOptionPane.showMessageDialog(null, equipo2.getNombre() + " Patea el penal...");
+							penales2=(int)(Math.random()*2);
+							if (penales2 == 1) {
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo2.getNombre());
+								tot2=tot2+1;
+							} else {
+								JOptionPane.showMessageDialog(null, equipo2.getNombre() +" Erro el penal :(");
+							}
+							JOptionPane.showMessageDialog(null, "Resultado actual: " + equipo1.getNombre() + " " + tot1 + " : " + tot2 + " " + equipo2.getNombre());
+						}while(tot1 < 3 && tot2 < 3);
+						//Desempate de penales
+						if(tot1==tot2) {
+							do {
+							JOptionPane.showMessageDialog(null, "Ambos equipos empataron, Vamos a gol gana...");
+							penales1=(int)(Math.random()*2);
+							if (penales1 == 1) {
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo1.getNombre());
+								tot1=tot1+1;
+							} else {
+								JOptionPane.showMessageDialog(null, equipo1.getNombre() +" Erro el penal :(");
+							}
+							JOptionPane.showMessageDialog(null, equipo2.getNombre() + " Patea el penal...");
+							penales2=(int)(Math.random()*2);
+							if (penales2 == 1) {
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo2.getNombre());
+								tot2=tot2+1;
+							} else {
+								JOptionPane.showMessageDialog(null, equipo2.getNombre() +" Erro el penal :(");
+							}
+							JOptionPane.showMessageDialog(null, "Resultado actual: " + equipo1.getNombre() + " " + tot1 + " : " + tot2 + " " + equipo2.getNombre());
+						}while(tot1==tot2);
+						}
+						if (tot1>tot2) {
+							resultado1=1;
+							resultado2=0;
+						} else {
+							resultado2=1;
+							resultado1=0;
+						}
+
+					} 
+				
+				if(resultado1>resultado2) {
+					return equipo1.getNombre();
+				} else {
+					return equipo2.getNombre();
+				}
+				
+
 			}
 			
-
 		} else {
 			JOptionPane.showMessageDialog(null, "No hay jugadores suficientes");
 		}
@@ -193,4 +220,5 @@ public class GestorEquipos {
 
 		}
     }
+	
 }

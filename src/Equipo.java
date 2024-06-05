@@ -44,25 +44,22 @@ public class Equipo {
 	}
 	
 	public void agregarJugadoresAleatorio(int cant) {
-
 		for (int i = 0; i < cant; i++) {
 			boolean flag = true;
 			do {
-				int camiseta = (int) (Math.random() * 99 + 1);
-
+				int camiseta = (int)(Math.random() * 99 + 1);
 				for (Jugador jugador : this.getPlantel()) {
 					if (jugador.getNroCamiseta() == camiseta) {
 						flag = false;
 					}
 				}
 				if (flag) {
-					this.getPlantel().add(new Jugador("nombre"+(i), "posicion", camiseta, 20, 70, 1.83,1,"Pais"));
+					this.getPlantel().add(new Jugador("nombre"+(i+1), "posicion", camiseta, 20, 70, 1.83,1,"Pais"));
 				}
 			} while (flag == false);
 		}
-		
-
 	}
+	
 	public void agregarJugadoresManual() {
 		String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del jugador");
 		int numeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese numero de jugador"));

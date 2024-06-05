@@ -17,6 +17,8 @@ public class Main {
 		int opcion4;
 		int opcion5;
 		
+		
+		
 		String[] opciones = {
 				"Equipos","Jugar Partido","Salir"	
 			};
