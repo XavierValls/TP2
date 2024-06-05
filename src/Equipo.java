@@ -59,7 +59,6 @@ public class Equipo {
 					this.getPlantel().add(new Jugador("nombre", "posicion", camiseta, 20, 70, 1.83,1,"Pais"));
 				}
 			} while (flag == false);
-
 		}
 		
 
@@ -144,6 +143,10 @@ public class Equipo {
 	}
 	
 	public void verJugadores() {
-		JOptionPane.showMessageDialog(null, this.plantel);
+		if (!this.plantel.isEmpty()) {
+			JOptionPane.showMessageDialog(null, this.plantel);
+		} else {
+			JOptionPane.showMessageDialog(null, "No hay jugadores en el plantel");
+		}
 	}
 }
