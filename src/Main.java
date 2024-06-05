@@ -9,8 +9,8 @@ public class Main {
 		GestorEquipos nuevo = new GestorEquipos();
 		Equipo boca = new Equipo("Boca","La boca");
 		Equipo river = new Equipo("River","Nuñez");
-		nuevo.getEquipos().add(river);
 		nuevo.getEquipos().add(boca); 
+		nuevo.getEquipos().add(river);
 		int opcion;
 		int opcion2;
 		int opcion3;
@@ -60,7 +60,7 @@ public class Main {
 								case 3:
 									//Distintos tipos de ver Jugadores
 									String[] opciones3 = {
-										"Buscar por nombre","Ver Lista de Jugadores","Cantidad total de Jugadores"
+										"Buscar por nombre","Ver Lista de Jugadores","Cantidad total de Jugadores","Volver Atras"
 									};
 									do {
 										opcion3 = JOptionPane.showOptionDialog(null, "Elija una opcion", null, 0, 0, null, opciones3, opciones3[0]);

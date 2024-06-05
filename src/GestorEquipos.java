@@ -89,15 +89,20 @@ public class GestorEquipos {
 			for (int i = 0; i < this.equipos.size(); i++) {
 				nombreEquipo[i] = this.equipos.get(i).getNombre();
 			}
-			for (Equipo equipos : equipos) {
+			boolean flag = true;
+			for (Equipo equipos : this.equipos) {
 				if (equipos.getNombre().equalsIgnoreCase(buscar)) {
 					JOptionPane.showMessageDialog(null, equipos);
+					flag=true;
 					break;
 				} else {
-					JOptionPane.showMessageDialog(null, "No se encontro un Equipo con ese nombre");
-					break;
+					flag=false;
 				}
 			}
+			if (!flag) {
+				JOptionPane.showMessageDialog(null, "No se encontro ningun Equipo con ese nombre");
+			}
+			
 		} else {
 			JOptionPane.showMessageDialog(null, "No existe ningun equipo");
 		}
