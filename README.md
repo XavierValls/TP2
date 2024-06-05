@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>Diagrama Trabajo Practico 2 POO</h1>
-    <img src="./Diagrama Tp2.png" alt="Diagrama">
+    <img src="./Diagrama/Diagrama Tp2.png" alt="Diagrama">
 </body>
 </html>
