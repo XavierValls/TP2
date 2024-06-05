@@ -88,16 +88,16 @@ public class Equipo {
 	}
 	public void eliminarJugador() {
 		while (!this.plantel.isEmpty()) {
-			String[] opciones = new String[plantel.size()];
-	        for (int i = 0; i < plantel.size(); i++) {
-	            opciones[i] = plantel.get(i).getNombre();
+			String[] opciones = new String[this.plantel.size()];
+	        for (int i = 0; i < this.plantel.size(); i++) {
+	            opciones[i] = this.plantel.get(i).getNombre();
 	        }
 	        String seleccion = (String) JOptionPane.showInputDialog(null, "Seleccione un jugador para eliminar:",
 	                "Eliminar Jugador", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 	        if (seleccion != null) {
-	            for (Jugador jugador : plantel) {
+	            for (Jugador jugador : this.plantel) {
 	                if (jugador.getNombre().equals(seleccion)) {
-	                    plantel.remove(jugador);
+	                	this.plantel.remove(jugador);
 	                    JOptionPane.showMessageDialog(null, "Jugador eliminado: " + jugador.getNombre());
 	                    break;
 	                }
@@ -115,13 +115,13 @@ public class Equipo {
 	
 	
 	public void buscarJugador() {
-		if (!plantel.isEmpty()) {
+		if (!this.plantel.isEmpty()) {
 			String buscar = JOptionPane.showInputDialog("Ingrese el nombre del jugador");
-			String[] nombreJugadores = new String[plantel.size()];
-			for (int i = 0; i < plantel.size(); i++) {
-	            nombreJugadores[i] = plantel.get(i).getNombre();
+			String[] nombreJugadores = new String[this.plantel.size()];
+			for (int i = 0; i < this.plantel.size(); i++) {
+	            nombreJugadores[i] = this.plantel.get(i).getNombre();
 			}
-			for (Jugador jugador : plantel) {
+			for (Jugador jugador : this.plantel) {
 				if (jugador.getNombre().equalsIgnoreCase(buscar)) {
 					JOptionPane.showMessageDialog(null, jugador);
 				} else if (buscar!=null){
@@ -136,10 +136,14 @@ public class Equipo {
 	}
 	
 	public void cantJugadores() {
-		if (!plantel.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "La cantidad de Jugadores del plantel es: " + plantel.size());
+		if (!this.plantel.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "La cantidad de Jugadores del plantel es: " + this.plantel.size());
 		} else {
 			JOptionPane.showMessageDialog(null, "El plantel no cuenta con Jugadores");
 		}
+	}
+	
+	public void verJugadores() {
+		JOptionPane.showMessageDialog(null, this.plantel);
 	}
 }

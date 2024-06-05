@@ -67,7 +67,7 @@ public class GestorEquipos {
 		} else {
 			boolean flag = true;
 			for (Equipo equipos : this.getEquipos()) {
-				if (equipos.getNombre() == nuevo.getNombre()) {
+				if (equipos.getNombre().equalsIgnoreCase(nuevo.getNombre())) {
 					JOptionPane.showMessageDialog(null, "Este nombre ya existe");
 					flag = false;
 					break;
@@ -81,4 +81,64 @@ public class GestorEquipos {
 
 		}
 	}
+	
+	public void buscarEquipo() {
+		if (!this.equipos.isEmpty()) {
+			String buscar = JOptionPane.showInputDialog("Ingrese el nombre del Equipo");
+			String[] nombreEquipo = new String[this.equipos.size()];
+			for (int i = 0; i < this.equipos.size(); i++) {
+				nombreEquipo[i] = this.equipos.get(i).getNombre();
+			}
+			for (Equipo equipos : equipos) {
+				if (equipos.getNombre().equalsIgnoreCase(buscar)) {
+					JOptionPane.showMessageDialog(null, equipos);
+					break;
+				} else {
+					JOptionPane.showMessageDialog(null, "No se encontro un Equipo con ese nombre");
+					break;
+				}
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "No existe ningun equipo");
+		}
+	}
+	
+	public void cantEquipos() {
+		if (!this.equipos.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "La cantidad de Equipos es: " + this.equipos.size());
+		} else {
+			JOptionPane.showMessageDialog(null, "No hay ningun Equipo");
+		}
+	}
+	
+	public void verEquipos() {
+		JOptionPane.showMessageDialog(null, this.equipos);
+	}
+	
+	public void eliminarEquipo() {
+		while (!this.equipos.isEmpty()) {
+			String[] opciones = new String[this.equipos.size()];
+	        for (int i = 0; i < this.equipos.size(); i++) {
+	            opciones[i] = this.equipos.get(i).getNombre();
+	        }
+	        String seleccion = (String) JOptionPane.showInputDialog(null, "Seleccione un Equipo para eliminar:",
+	                "Eliminar Jugador", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+	        if (seleccion != null) {
+	            for (Equipo equipos : this.equipos) {
+	                if (equipos.getNombre().equals(seleccion)) {
+	                	this.equipos.remove(equipos);
+	                    JOptionPane.showMessageDialog(null, "Equipo eliminado: " + equipos.getNombre());
+	                    break;
+	                }
+	            }
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún Equipo.");
+	            break;
+	        }
+	    }
+		if (this.equipos.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "No hay Equipos para eliminar");
+
+		}
+    }
 }
