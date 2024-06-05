@@ -40,7 +40,7 @@ public class Equipo {
 
 	@Override
 	public String toString() {
-		return "Equipo [nombre=" + nombre + ", ciudad=" + ciudad + ", plantel=" + plantel + "]";
+		return "\nEquipo [nombre=" + nombre + ", ciudad=" + ciudad + ", plantel=" + plantel + "]";
 	}
 	
 	public void agregarJugadoresAleatorio(int cant) {
@@ -56,7 +56,7 @@ public class Equipo {
 					}
 				}
 				if (flag) {
-					this.getPlantel().add(new Jugador("nombre", "posicion", camiseta, 20, 70, 1.83,1,"Pais"));
+					this.getPlantel().add(new Jugador("nombre"+(i), "posicion", camiseta, 20, 70, 1.83,1,"Pais"));
 				}
 			} while (flag == false);
 		}
@@ -64,23 +64,29 @@ public class Equipo {
 
 	}
 	public void agregarJugadoresManual() {
+		String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del jugador");
 		int numeroCamiseta = Integer.parseInt(JOptionPane.showInputDialog("Ingrese numero de jugador"));
-		Jugador nuevo = new Jugador("nombre", "posicion",numeroCamiseta, 20, 70, 1.83,1, "Pais");
+		Jugador nuevo = new Jugador(nombreJugador, "posicion",numeroCamiseta, 20, 70, 1.83,1, "Pais");
 		if (this.getPlantel().isEmpty()) {
 			this.getPlantel().add(nuevo);
 		} else {
 			boolean flag = true;
 			for (Jugador jugador : this.getPlantel()) {
-				if (jugador.getNroCamiseta() == nuevo.getNroCamiseta()) {
+				if (jugador.getNombre().equalsIgnoreCase(nuevo.getNombre())) {
+					JOptionPane.showMessageDialog(null, "Este nombre ya existe");
+					flag = false;
+					break;
+				} else if (jugador.getNroCamiseta() == nuevo.getNroCamiseta()) {
 					JOptionPane.showMessageDialog(null, "Este numero ya existe");
 					flag = false;
 					break;
 				}
+				
 			}
 			if (flag) {
 				this.getPlantel().add(nuevo);
 			} else {
-				JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador, el numero ya existe");
+				JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador");
 			}
 
 		}
