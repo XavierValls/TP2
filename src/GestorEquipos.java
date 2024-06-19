@@ -1,22 +1,67 @@
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 
 public class GestorEquipos {
 
 	private LinkedList<Equipo> equipos = new LinkedList<Equipo>();
-	
+	private LinkedList<Partido> partidos = new LinkedList<Partido>();
+	private LinkedList<Equipo> ganadores = new LinkedList<Equipo>();
+	private LinkedList<Equipo> finalistas = new LinkedList<Equipo>();
 	
 	public GestorEquipos() {
 
 	}
+	
+	
+	
+
+	public LinkedList<Equipo> getFinalistas() {
+		return finalistas;
+	}
+
+
+
+
+	public void setFinalistas(LinkedList<Equipo> finalistas) {
+		this.finalistas = finalistas;
+	}
+
+
+
+
+	public LinkedList<Equipo> getGanadores() {
+		return ganadores;
+	}
+
+
+
+
+	public void setGanadores(LinkedList<Equipo> ganadores) {
+		this.ganadores = ganadores;
+	}
+
+
 
 
 	public LinkedList<Equipo> getEquipos() {
 		return equipos;
 	}
+	
+	
 
 
+
+
+	public LinkedList<Partido> getPartidos() {
+		return partidos;
+	}
+
+
+	public void setPartidos(LinkedList<Partido> partidos) {
+		this.partidos = partidos;
+	}
 
 
 	public void setEquipos(LinkedList<Equipo> equipos) {
@@ -30,9 +75,9 @@ public class GestorEquipos {
 	}
 
 
-	public String JugarPartido(Equipo equipo1, Equipo equipo2) {
-		if (equipo1.getPlantel().size() >= 8 && equipo2.getPlantel().size() >= 8) {
-			if (equipo1.getNombre().equals(equipo2.getNombre())) {
+	public Equipo JugarPartido(Partido partido) {
+		if (partido.getEquipo1().getPlantel().size()>= 8 && partido.getEquipo2().getPlantel().size() >= 8) {
+			if (partido.getEquipo1().getNombre().equals(partido.getEquipo2().getNombre())) {
 				JOptionPane.showMessageDialog(null, "No puede jugar el mismo equipo, elija otro");
 			} else {
 				JOptionPane.showMessageDialog(null, "El partido comenzara pronto");
@@ -45,13 +90,13 @@ public class GestorEquipos {
 					resultado1 = goles1;
 					goles2 = (int)(Math.random()*5);
 					resultado2 = goles2;
-					JOptionPane.showMessageDialog(null, "Se termino el primer tiempo\n Resultado : "+ equipo1.getNombre() + " " + goles1 + " : " + goles2 + " " + equipo2.getNombre());
+					JOptionPane.showMessageDialog(null, "Se termino el primer tiempo\n Resultado : "+ partido.getEquipo1().getNombre() + " " + goles1 + " : " + goles2 + " " + partido.getEquipo2().getNombre());
 					JOptionPane.showMessageDialog(null, "Arranca el segundo tiempo...");
 					goles1 = (int)(Math.random()*5);
 					resultado1 = resultado1 + goles1;
 					goles2 = (int)(Math.random()*5);
 					resultado2 = resultado2 + goles2;
-					JOptionPane.showMessageDialog(null, "Se termino el segundo tiempo\n Resultado : "+ equipo1.getNombre() + " " + resultado1 + " : " + resultado2 + " " + equipo2.getNombre());
+					JOptionPane.showMessageDialog(null, "Se termino el segundo tiempo\n Resultado : "+ partido.getEquipo1().getNombre() + " " + resultado1 + " : " + resultado2 + " " + partido.getEquipo2().getNombre());
 					//Si empatan van a penales. Gana el primero que llegue a 3 penales.
 					if (resultado1==resultado2) {
 						JOptionPane.showMessageDialog(null, "Es un empate. Hay penales...");
@@ -59,23 +104,23 @@ public class GestorEquipos {
 						tot1 = 0;
 						tot2 = 0;
 						do {
-							JOptionPane.showMessageDialog(null, equipo1.getNombre() + " Patea el penal...");
+							JOptionPane.showMessageDialog(null, partido.getEquipo1().getNombre() + " Patea el penal...");
 							penales1=(int)(Math.random()*2);
 							if (penales1 == 1) {
-								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo1.getNombre());
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +partido.getEquipo1().getNombre());
 								tot1=tot1+1;
 							} else {
-								JOptionPane.showMessageDialog(null, equipo1.getNombre() +" Erro el penal :(");
+								JOptionPane.showMessageDialog(null, partido.getEquipo1().getNombre() +" Erro el penal :(");
 							}
-							JOptionPane.showMessageDialog(null, equipo2.getNombre() + " Patea el penal...");
+							JOptionPane.showMessageDialog(null, partido.getEquipo2().getNombre() + " Patea el penal...");
 							penales2=(int)(Math.random()*2);
 							if (penales2 == 1) {
-								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo2.getNombre());
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +partido.getEquipo2().getNombre());
 								tot2=tot2+1;
 							} else {
-								JOptionPane.showMessageDialog(null, equipo2.getNombre() +" Erro el penal :(");
+								JOptionPane.showMessageDialog(null, partido.getEquipo2().getNombre() +" Erro el penal :(");
 							}
-							JOptionPane.showMessageDialog(null, "Resultado actual: " + equipo1.getNombre() + " " + tot1 + " : " + tot2 + " " + equipo2.getNombre());
+							JOptionPane.showMessageDialog(null, "Resultado actual: " + partido.getEquipo1().getNombre() + " " + tot1 + " : " + tot2 + " " + partido.getEquipo2().getNombre());
 						}while(tot1 < 3 && tot2 < 3);
 						//Desempate de penales
 						if(tot1==tot2) {
@@ -83,44 +128,44 @@ public class GestorEquipos {
 							JOptionPane.showMessageDialog(null, "Ambos equipos empataron, Vamos a gol gana...");
 							penales1=(int)(Math.random()*2);
 							if (penales1 == 1) {
-								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo1.getNombre());
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +partido.getEquipo1().getNombre());
 								tot1=tot1+1;
 							} else {
-								JOptionPane.showMessageDialog(null, equipo1.getNombre() +" Erro el penal :(");
+								JOptionPane.showMessageDialog(null, partido.getEquipo1().getNombre() +" Erro el penal :(");
 							}
-							JOptionPane.showMessageDialog(null, equipo2.getNombre() + " Patea el penal...");
+							JOptionPane.showMessageDialog(null, partido.getEquipo2().getNombre() + " Patea el penal...");
 							penales2=(int)(Math.random()*2);
 							if (penales2 == 1) {
-								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +equipo2.getNombre());
+								JOptionPane.showMessageDialog(null, "GOOOOOOOOOOOOOOOL!!! de  " +partido.getEquipo2().getNombre());
 								tot2=tot2+1;
 							} else {
-								JOptionPane.showMessageDialog(null, equipo2.getNombre() +" Erro el penal :(");
+								JOptionPane.showMessageDialog(null, partido.getEquipo2().getNombre() +" Erro el penal :(");
 							}
-							JOptionPane.showMessageDialog(null, "Resultado actual: " + equipo1.getNombre() + " " + tot1 + " : " + tot2 + " " + equipo2.getNombre());
+							JOptionPane.showMessageDialog(null, "Resultado actual: " + partido.getEquipo1().getNombre() + " " + tot1 + " : " + tot2 + " " + partido.getEquipo2().getNombre());
 						}while(tot1==tot2);
 						}
-						if (tot1>tot2) {
-							resultado1=1;
-							resultado2=0;
-						} else {
-							resultado2=1;
-							resultado1=0;
-						}
+						resultado1 = resultado1+tot1;
+						resultado2 = resultado2+tot2;
 
 					} 
-				
-				if(resultado1>resultado2) {
-					return equipo1.getNombre();
-				} else {
-					return equipo2.getNombre();
-				}
-				
-
+					
+					partido.setGoles1(resultado1);
+					partido.setGoles2(resultado2);
+					partido.setEstado("Terminado");
 			}
+
 			
 		} else {
 			JOptionPane.showMessageDialog(null, "No hay jugadores suficientes");
 		}
+		JOptionPane.showMessageDialog(null, "El Ganador es: " +partido.DeterminarGanador());
+		if (Partido.getCantPartidos()<=4) {
+			ganadores.add(partido.DeterminarGanador());
+		}
+		if (Partido.getCantPartidos()> 4 && Partido.getCantPartidos() <= 6) {
+			finalistas.add(partido.DeterminarGanador());
+		}
+		partido.setCantPartidos(partido.getCantPartidos()+1);
 		return null;
 	}
 	
@@ -219,6 +264,43 @@ public class GestorEquipos {
 			JOptionPane.showMessageDialog(null, "No hay Equipos para eliminar");
 
 		}
+		
+		
     }
 	
+	public void CrearFixture() {
+		LinkedList<Equipo> copiarEquipos = new LinkedList<>(equipos);
+		int[] partidos = new int[8];
+		Random random = new Random();
+		
+		for (int i = 0; i < 8; i++) {
+			int numero;
+			boolean flag;
+			do {
+				flag = true;
+				numero = random.nextInt(8);
+				for (int j = 0; j < i; j++) {
+					if (numero == partidos[j]) {
+						flag = false;
+						break;
+					}
+				}
+			} while (!flag);
+			
+			partidos[i] = numero;
+		}
+		
+		LinkedList<Partido> listaPartidos = new LinkedList<>();
+		for (int i = 0; i < partidos.length; i+=2) {
+			Partido partido = new Partido(copiarEquipos.get(partidos[i]), copiarEquipos.get(partidos[i+1]));
+			listaPartidos.add(partido);
+			this.getPartidos().add(partido);
+		}
+		
+		StringBuilder mensaje = new StringBuilder("Partidos generados:\n");
+		for (Partido partido : listaPartidos) {
+			mensaje.append(partido).append("\n");
+		}
+		JOptionPane.showMessageDialog(null, mensaje.toString());
+	}
 }

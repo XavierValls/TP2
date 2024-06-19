@@ -1,4 +1,5 @@
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -7,18 +8,26 @@ public class Main {
 
 	public static void main(String[] args) {
 		GestorEquipos nuevo = new GestorEquipos();
-		Equipo boca = new Equipo("Boca","La boca");
-		Equipo river = new Equipo("River","Nuñez");
-		nuevo.getEquipos().add(boca); 
-		nuevo.getEquipos().add(river);
+		nuevo.getEquipos().add(new Equipo("Boca","La boca")); 
+		nuevo.getEquipos().add(new Equipo("River","Nuñez"));
+		nuevo.getEquipos().add(new Equipo("Lanus","Lanus"));
+		nuevo.getEquipos().add(new Equipo("Velez","Liniers"));
+		nuevo.getEquipos().add(new Equipo("Chacarita","San Martin"));
+		nuevo.getEquipos().add(new Equipo("Newells","Rosario"));
+		nuevo.getEquipos().add(new Equipo("Talleres","Cordoba"));
+		nuevo.getEquipos().add(new Equipo("Belgrano","Cordoba"));
+		for (Equipo equipo : nuevo.getEquipos()) {
+			equipo.agregarJugadoresAleatorio(11);
+		} 
+		nuevo.CrearFixture();
+		
 		int opcion;
 		int opcion2;
 		int opcion3;
 		int opcion4;
 		int opcion5;
 		
-		
-		
+
 		String[] opciones = {
 				"Equipos","Jugar Partido","Salir"	
 			};
@@ -35,8 +44,8 @@ public class Main {
 						switch (opcion4) {
 						case 0:
 							//Modificacion de Jugadores dentro de cada Equipo
-							int equipoElegido= elegirEquipo(nuevo.getEquipos());
-							JOptionPane.showMessageDialog(null, "Usted seleccionó al equipo:"+nuevo.getEquipos().get(equipoElegido));
+							Equipo equipoElegido = elegirEquipo(nuevo.getEquipos());
+							JOptionPane.showMessageDialog(null, "Usted seleccionó al equipo:"+equipoElegido);
 							String[] opciones2 = {
 									"Agregar Jugadores Manualmente","Agregar Jugadores Aleatorio","Eliminar Jugadores","Ver Jugadores","Volver Atras"	
 								};
@@ -46,18 +55,18 @@ public class Main {
 								switch (opcion2) {
 								case 0:
 									//Agregar jugadores manualmente
-									nuevo.getEquipos().get(equipoElegido).agregarJugadoresManual();
+									equipoElegido.agregarJugadoresManual();
 									break;
 
 								case 1:
 									//Agregar jugadores aleatorio
 									int cantidad2 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores"));
-									nuevo.getEquipos().get(equipoElegido).agregarJugadoresAleatorio(cantidad2);
-									JOptionPane.showMessageDialog(null, nuevo.getEquipos().get(equipoElegido).getPlantel());
+									equipoElegido.agregarJugadoresAleatorio(cantidad2);
+									JOptionPane.showMessageDialog(null, equipoElegido.getPlantel());
 									break;
 								case 2:
 									//Eliminar a un jugador
-									nuevo.getEquipos().get(equipoElegido).eliminarJugador();
+									equipoElegido.eliminarJugador();
 									break;
 								case 3:
 									//Distintos tipos de ver Jugadores
@@ -69,15 +78,15 @@ public class Main {
 										switch (opcion3) {
 										case 0:
 											//Buscar un Jugador por nombre
-											nuevo.getEquipos().get(equipoElegido).buscarJugador();
+											equipoElegido.buscarJugador();
 											break;
 										case 1:
 											//Ver el Plantel
-											nuevo.getEquipos().get(equipoElegido).verJugadores();
+											equipoElegido.verJugadores();
 											break;
 										case 2:
 											//Ver Cantidad de Jugadores
-											nuevo.getEquipos().get(equipoElegido).cantJugadores();
+											equipoElegido.cantJugadores();
 											break;
 										}
 									}while(opcion3!=3);
@@ -120,20 +129,73 @@ public class Main {
 				break;
 				case 1:
 					//Jugar Partido
-					JOptionPane.showMessageDialog(null,"El ganador fué: "+ nuevo.JugarPartido(nuevo.getEquipos().get(elegirEquipo(nuevo.getEquipos())), nuevo.getEquipos().get(elegirEquipo(nuevo.getEquipos()))));
+					if (Partido.getCantPartidos()<=4) {
+						JOptionPane.showMessageDialog(null, nuevo.JugarPartido(elegirPartido(nuevo.getPartidos())));
+						JOptionPane.showMessageDialog(null, Partido.getCantPartidos());
+					}
+					if (Partido.getCantPartidos()> 4 && Partido.getCantPartidos() <= 6) {
+						Partido semis = new Partido(elegirEquipoSemis(nuevo.getGanadores()),elegirEquipoSemis(nuevo.getGanadores()));
+						JOptionPane.showMessageDialog(null, nuevo.JugarPartido(semis));
+					}
+					if(Partido.getCantPartidos()>6) {
+						Partido finall = new Partido(elegirEquipoFinal(nuevo.getFinalistas()),elegirEquipoFinal(nuevo.getFinalistas()));
+						JOptionPane.showMessageDialog(null, nuevo.JugarPartido(finall));
+					}
+					
 					break;
 				}
 			} while(opcion!=2);
 	}
-	public static int elegirEquipo(LinkedList<Equipo> equipos) {
+	public static Equipo elegirEquipo(LinkedList<Equipo> equipos) {
 		String[] arregloEquipo = new String[equipos.size()];
 		for (int i = 0; i < arregloEquipo.length; i++) {
 			arregloEquipo[i] = equipos.get(i).getNombre();
 		}
-		int seleccionado = JOptionPane.showOptionDialog(null, "Seleccione los equipos", null, 0, 0, null, arregloEquipo,
+		int opcion = JOptionPane.showOptionDialog(null, "Seleccione los equipos", null, 0, 0, null, arregloEquipo,
 				arregloEquipo);
+		Equipo seleccionado = equipos.get(opcion);
+		equipos.remove(seleccionado);
 		return seleccionado;
 	}
+	
+	public static Equipo elegirEquipoSemis(LinkedList<Equipo> ganadores) {
+		String[] arregloEquipo = new String[ganadores.size()];
+		for (int i = 0; i < arregloEquipo.length; i++) {
+			arregloEquipo[i] = ganadores.get(i).getNombre();
+		}
+		int opcion = JOptionPane.showOptionDialog(null, "Seleccione los equipos", null, 0, 0, null, arregloEquipo,
+				arregloEquipo);
+		Equipo seleccionado = ganadores.get(opcion);
+		ganadores.remove(seleccionado);
+		return seleccionado;
+	}
+	
+	public static Equipo elegirEquipoFinal(LinkedList<Equipo> finalistas) {
+		String[] arregloEquipo = new String[finalistas.size()];
+		for (int i = 0; i < arregloEquipo.length; i++) {
+			arregloEquipo[i] = finalistas.get(i).getNombre();
+		}
+		int opcion = JOptionPane.showOptionDialog(null, "Seleccione los equipos", null, 0, 0, null, arregloEquipo,
+				arregloEquipo);
+		Equipo seleccionado = finalistas.get(opcion);
+		finalistas.remove(seleccionado);
+		return seleccionado;
+	}
+	
+	public static Partido elegirPartido(LinkedList<Partido> partidos) {
+		String[] arregloPartidos = new String[partidos.size()];
+		for (int i = 0; i < arregloPartidos.length; i++) {
+			arregloPartidos[i] = partidos.get(i).toString();
+		}
+		int opcion = JOptionPane.showOptionDialog(null, "Seleccione los equipos", null, 0, 0, null, arregloPartidos,
+				arregloPartidos);
+		Partido seleccionado = partidos.get(opcion);
+		partidos.remove(seleccionado);
+		return seleccionado;
+	}
+	
+	
+	
 
 	
 }

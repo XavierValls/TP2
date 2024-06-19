@@ -44,21 +44,29 @@ public class Equipo {
 	}
 	
 	public void agregarJugadoresAleatorio(int cant) {
-		for (int i = 0; i < cant; i++) {
-			boolean flag = true;
-			do {
-				int camiseta = (int)(Math.random() * 99 + 1);
-				for (Jugador jugador : this.getPlantel()) {
-					if (jugador.getNroCamiseta() == camiseta) {
-						flag = false;
-					}
-				}
-				if (flag) {
-					this.getPlantel().add(new Jugador("nombre"+(i+1), "posicion", camiseta, 20, 70, 1.83,1,"Pais"));
-				}
-			} while (flag == false);
-		}
+	    if (cant > 0) {
+	        for (int i = 0; i < cant; i++) {
+	            boolean flag = false;
+	            int camiseta;
+	            do {
+	                camiseta = (int)(Math.random() * 99 + 1);
+	                flag = true;
+	                for (Jugador jugador : this.getPlantel()) {
+	                    if (jugador.getNroCamiseta() == camiseta) {
+	                        flag = false;
+	                        break;
+	                    }
+	                }
+	            } while (!flag);
+
+	            this.getPlantel().add(new Jugador("nombre" + (i + 1), "posicion", camiseta, 20, 70, 1.83, 1, "Pais"));
+	        }
+	    } else {
+	        JOptionPane.showMessageDialog(null, "La cantidad tiene que ser mayor que 0");
+	    }
 	}
+
+
 	
 	public void agregarJugadoresManual() {
 		String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del jugador");
