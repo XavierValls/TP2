@@ -26,10 +26,11 @@ public class Main {
 		int opcion3;
 		int opcion4;
 		int opcion5;
+		int opcion6;
 		
 
 		String[] opciones = {
-				"Equipos","Jugar Partido","Salir"	
+				"Equipos","Jugar Partido","Ver Partidos","Salir"	
 			};
 			do {
 				opcion = JOptionPane.showOptionDialog(null, "Elija una opcion", null, 0, 0, null, opciones, opciones[0]);
@@ -131,7 +132,6 @@ public class Main {
 					//Jugar Partido
 					if (Partido.getCantPartidos()<=4) {
 						JOptionPane.showMessageDialog(null, nuevo.JugarPartido(elegirPartido(nuevo.getPartidos())));
-						JOptionPane.showMessageDialog(null, Partido.getCantPartidos());
 					}
 					if (Partido.getCantPartidos()> 4 && Partido.getCantPartidos() <= 6) {
 						Partido semis = new Partido(elegirEquipoSemis(nuevo.getGanadores()),elegirEquipoSemis(nuevo.getGanadores()));
@@ -143,8 +143,14 @@ public class Main {
 					}
 					
 					break;
+				case 2:
+					if (Partido.getCantPartidos()==1) {
+						JOptionPane.showMessageDialog(null, "No se jugo ningun partido aun");
+					} else {
+						JOptionPane.showMessageDialog(null, nuevo.getHistorial());
+					}
 				}
-			} while(opcion!=2);
+			} while(opcion!=3);
 	}
 	public static Equipo elegirEquipo(LinkedList<Equipo> equipos) {
 		String[] arregloEquipo = new String[equipos.size()];
@@ -163,7 +169,7 @@ public class Main {
 		for (int i = 0; i < arregloEquipo.length; i++) {
 			arregloEquipo[i] = ganadores.get(i).getNombre();
 		}
-		int opcion = JOptionPane.showOptionDialog(null, "Seleccione los equipos", null, 0, 0, null, arregloEquipo,
+		int opcion = JOptionPane.showOptionDialog(null, "Seleccione los equipos\n Fase: Semifinales" , null, 0, 0, null, arregloEquipo,
 				arregloEquipo);
 		Equipo seleccionado = ganadores.get(opcion);
 		ganadores.remove(seleccionado);
@@ -175,7 +181,7 @@ public class Main {
 		for (int i = 0; i < arregloEquipo.length; i++) {
 			arregloEquipo[i] = finalistas.get(i).getNombre();
 		}
-		int opcion = JOptionPane.showOptionDialog(null, "Seleccione los equipos", null, 0, 0, null, arregloEquipo,
+		int opcion = JOptionPane.showOptionDialog(null, "Partido Final!! \nSeleccione los equipos", null, 0, 0, null, arregloEquipo,
 				arregloEquipo);
 		Equipo seleccionado = finalistas.get(opcion);
 		finalistas.remove(seleccionado);

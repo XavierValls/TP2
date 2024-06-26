@@ -9,6 +9,7 @@ public class GestorEquipos {
 	private LinkedList<Partido> partidos = new LinkedList<Partido>();
 	private LinkedList<Equipo> ganadores = new LinkedList<Equipo>();
 	private LinkedList<Equipo> finalistas = new LinkedList<Equipo>();
+	private LinkedList<Partido> historial = new LinkedList<Partido>();
 	
 	public GestorEquipos() {
 
@@ -16,6 +17,20 @@ public class GestorEquipos {
 	
 	
 	
+
+	public LinkedList<Partido> getHistorial() {
+		return historial;
+	}
+
+
+
+
+	public void setHistorial(LinkedList<Partido> historial) {
+		this.historial = historial;
+	}
+
+
+
 
 	public LinkedList<Equipo> getFinalistas() {
 		return finalistas;
@@ -85,18 +100,93 @@ public class GestorEquipos {
 				int goles2;
 				int resultado1;
 				int resultado2;
+				int nivel1, nivel2, posesion1, posesion2, faltas1, faltas2, tarjetas1, tarjetas2;
 		
-					goles1 = (int)(Math.random()*5);
-					resultado1 = goles1;
-					goles2 = (int)(Math.random()*5);
-					resultado2 = goles2;
-					JOptionPane.showMessageDialog(null, "Se termino el primer tiempo\n Resultado : "+ partido.getEquipo1().getNombre() + " " + goles1 + " : " + goles2 + " " + partido.getEquipo2().getNombre());
+					nivel1 = partido.getEquipo1().generarNivel();
+					if (nivel1 == 1) {
+						goles1 = (int)(Math.random()*5);
+						resultado1 = goles1;
+					} else if (nivel1 == 2) {
+						JOptionPane.showMessageDialog(null, partido.getEquipo1().getNombre() + ": Gano el ultimo partido, a tener cuidado!");
+						goles1 = (int)(Math.random()*7);
+						resultado1 = goles1;
+					} else {
+						JOptionPane.showMessageDialog(null, partido.getEquipo1().getNombre() + ": Viene en racha! hay que tenerle miedo");
+						goles1 = (int)(Math.random()*10);
+						resultado1 = goles1;
+					}
+					nivel2 = partido.getEquipo2().generarNivel();
+					if (nivel2 == 1) {
+						goles2 = (int)(Math.random()*5);
+						resultado2 = goles2;
+					} else if (nivel2 == 2) {
+						JOptionPane.showMessageDialog(null, partido.getEquipo2().getNombre() + ": Gano el ultimo partido, a tener cuidado!");
+						goles2 = (int)(Math.random()*7);
+						resultado2 = goles2;
+					} else {
+						JOptionPane.showMessageDialog(null, partido.getEquipo2().getNombre() + ": Viene en racha! hay que tenerle miedo");
+						goles2 = (int)(Math.random()*10);
+						resultado2 = goles2;
+					}
+					if (resultado1 > resultado2) {
+						posesion1 = (int)(Math.random()*50+50);
+						posesion2 = 100 - posesion1;
+						faltas1 = (int)(Math.random()*10);
+						faltas2 = (int)(Math.random()*10);
+						tarjetas1 = (int)(Math.random()*faltas1);
+						tarjetas2 = (int)(Math.random()*faltas2);
+					} else {
+						posesion2 = (int)(Math.random()*50+50);
+						posesion1 = 100 - posesion2;
+						faltas1 = (int)(Math.random()*10);
+						faltas2 = (int)(Math.random()*10);
+						tarjetas1 = (int)(Math.random()*faltas1);
+						tarjetas2 = (int)(Math.random()*faltas2);
+					}
+					JOptionPane.showMessageDialog(null, "Se termino el primer tiempo\n Resultado : "+ partido.getEquipo1().getNombre() + " " + goles1 + " : " + goles2 + " " + partido.getEquipo2().getNombre()
+							+"\n Estadisticas: \n Posesion: "+ posesion1 + "% : "+ posesion2+ "%\n"
+									+ "Faltas: " + faltas1+ " : " + faltas2+ "\n"
+											+ "Tarjetas Amarillas: " + tarjetas1 + " : " + tarjetas2);
 					JOptionPane.showMessageDialog(null, "Arranca el segundo tiempo...");
-					goles1 = (int)(Math.random()*5);
-					resultado1 = resultado1 + goles1;
-					goles2 = (int)(Math.random()*5);
-					resultado2 = resultado2 + goles2;
-					JOptionPane.showMessageDialog(null, "Se termino el segundo tiempo\n Resultado : "+ partido.getEquipo1().getNombre() + " " + resultado1 + " : " + resultado2 + " " + partido.getEquipo2().getNombre());
+					if (nivel1 == 1) {
+						goles1 = (int)(Math.random()*5);
+						resultado1 = resultado1+goles1;
+					} else if (nivel1 == 2) {
+						goles1 = (int)(Math.random()*7);
+						resultado1 = resultado1+goles1;
+					} else {
+						goles1 = (int)(Math.random()*10);
+						resultado1 = resultado1+goles1;
+					}
+					if (nivel2 == 1) {
+						goles2 = (int)(Math.random()*5);
+						resultado2 = resultado2+goles2;
+					} else if (nivel2 == 2) {
+						goles2 = (int)(Math.random()*7);
+						resultado2 = resultado2+goles2;
+					} else {
+						goles2 = (int)(Math.random()*10);
+						resultado2 = resultado2+goles2;
+					}
+					if (resultado1 > resultado2) {
+						posesion1 = (int)(Math.random()*50+50);
+						posesion2 = 100 - posesion1;
+						faltas1 = (int)(Math.random()*10+faltas1);
+						faltas2 = (int)(Math.random()*10+faltas2);
+						tarjetas1 = (int)(Math.random()*faltas1);
+						tarjetas2 = (int)(Math.random()*faltas2);
+					} else {
+						posesion2 = (int)(Math.random()*50+50);
+						posesion1 = 100 - posesion2;
+						faltas1 = (int)(Math.random()*10+faltas1);
+						faltas2 = (int)(Math.random()*10+faltas2);
+						tarjetas1 = (int)(Math.random()*faltas1);
+						tarjetas2 = (int)(Math.random()*faltas2);
+					}
+					JOptionPane.showMessageDialog(null, "Se termino el Segundo tiempo\n Resultado : "+ partido.getEquipo1().getNombre() + " " + resultado1 + " : " + resultado2 + " " + partido.getEquipo2().getNombre()
+							+"\n Estadisticas: \n Posesion: "+ posesion1 + "% : "+ posesion2+ "%\n"
+									+ "Faltas: " + faltas1+ " : " + faltas2+ "\n"
+										+ "Tarjetas Amarillas: " + tarjetas1 + " : " + tarjetas2);
 					//Si empatan van a penales. Gana el primero que llegue a 3 penales.
 					if (resultado1==resultado2) {
 						JOptionPane.showMessageDialog(null, "Es un empate. Hay penales...");
@@ -158,7 +248,10 @@ public class GestorEquipos {
 		} else {
 			JOptionPane.showMessageDialog(null, "No hay jugadores suficientes");
 		}
-		JOptionPane.showMessageDialog(null, "El Ganador es: " +partido.DeterminarGanador());
+		JOptionPane.showMessageDialog(null, "El Ganador es: " +partido.DeterminarGanador().getNombre());
+		if (Partido.getCantPartidos()>6) {
+			JOptionPane.showMessageDialog(null, "El Campeon del torneo es: " +partido.DeterminarGanador().getNombre()+ "!!!");
+		}
 		if (Partido.getCantPartidos()<=4) {
 			ganadores.add(partido.DeterminarGanador());
 		}
@@ -166,6 +259,7 @@ public class GestorEquipos {
 			finalistas.add(partido.DeterminarGanador());
 		}
 		partido.setCantPartidos(partido.getCantPartidos()+1);
+		historial.add(partido);
 		return null;
 	}
 	

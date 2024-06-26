@@ -13,6 +13,8 @@ public class Equipo {
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 	}
+	
+
 
 	public String getNombre() {
 		return nombre;
@@ -159,5 +161,9 @@ public class Equipo {
 		} else {
 			JOptionPane.showMessageDialog(null, "No hay jugadores en el plantel");
 		}
+	}
+	public int generarNivel() {
+		int nivel = (int)(Math.random()*3+1);
+		return nivel;
 	}
 }
