@@ -131,15 +131,15 @@ public class GestorEquipos {
 					if (resultado1 > resultado2) {
 						posesion1 = (int)(Math.random()*50+50);
 						posesion2 = 100 - posesion1;
-						faltas1 = (int)(Math.random()*10);
-						faltas2 = (int)(Math.random()*10);
+						faltas1 = (int)(Math.random()*5);
+						faltas2 = (int)(Math.random()*5);
 						tarjetas1 = (int)(Math.random()*faltas1);
 						tarjetas2 = (int)(Math.random()*faltas2);
 					} else {
 						posesion2 = (int)(Math.random()*50+50);
 						posesion1 = 100 - posesion2;
-						faltas1 = (int)(Math.random()*10);
-						faltas2 = (int)(Math.random()*10);
+						faltas1 = (int)(Math.random()*5);
+						faltas2 = (int)(Math.random()*5);
 						tarjetas1 = (int)(Math.random()*faltas1);
 						tarjetas2 = (int)(Math.random()*faltas2);
 					}
@@ -171,17 +171,17 @@ public class GestorEquipos {
 					if (resultado1 > resultado2) {
 						posesion1 = (int)(Math.random()*50+50);
 						posesion2 = 100 - posesion1;
-						faltas1 = (int)(Math.random()*10+faltas1);
-						faltas2 = (int)(Math.random()*10+faltas2);
-						tarjetas1 = (int)(Math.random()*faltas1);
-						tarjetas2 = (int)(Math.random()*faltas2);
+						faltas1 = (int)(Math.random()*5+faltas1);
+						faltas2 = (int)(Math.random()*5+faltas2);
+						tarjetas1 = tarjetas1 +(int)(Math.random()*faltas1);
+						tarjetas2 = tarjetas2 +(int)(Math.random()*faltas2);
 					} else {
 						posesion2 = (int)(Math.random()*50+50);
 						posesion1 = 100 - posesion2;
-						faltas1 = (int)(Math.random()*10+faltas1);
-						faltas2 = (int)(Math.random()*10+faltas2);
-						tarjetas1 = (int)(Math.random()*faltas1);
-						tarjetas2 = (int)(Math.random()*faltas2);
+						faltas1 = (int)(Math.random()*5+faltas1);
+						faltas2 = (int)(Math.random()*5+faltas2);
+						tarjetas1 = tarjetas1 +(int)(Math.random()*faltas1);
+						tarjetas2 = tarjetas2 +(int)(Math.random()*faltas2);
 					}
 					JOptionPane.showMessageDialog(null, "Se termino el Segundo tiempo\n Resultado : "+ partido.getEquipo1().getNombre() + " " + resultado1 + " : " + resultado2 + " " + partido.getEquipo2().getNombre()
 							+"\n Estadisticas: \n Posesion: "+ posesion1 + "% : "+ posesion2+ "%\n"
